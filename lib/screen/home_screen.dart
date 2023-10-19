@@ -14,85 +14,66 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController txttitle = TextEditingController();
   TextEditingController txtdetail = TextEditingController();
-  bool isgrid = true;
+  bool isGrid = true;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          title: const Text("To-Do"),
           centerTitle: true,
-          title: Text(
-            "To-Do",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-          backgroundColor: Colors.white,
           actions: [
             IconButton(
-              onPressed: () {
-                setState(() {
-                  isgrid = !isgrid;
-                });
-              },
-              icon: Icon(isgrid ?
-              Icons.list :
-              Icons.grid_on_outlined),
-              color: Colors.black,
-            ),
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.circle_outlined,
-                  color: Colors.black,
-                ))
+                onPressed: () {
+                  setState(() {
+                    isGrid = !isGrid;
+                  });
+                },
+                icon: Icon(isGrid ? Icons.grid_view_outlined : Icons.list)),
           ],
         ),
-        body: ListView.builder(
+        body: isGrid
+            ? ListView.builder(
+          itemCount: Global.g1.todoList.length,
           itemBuilder: (context, index) {
-            TodoModel todo = Global.g1.todoList[index];
+            TodoModel data = Global.g1.todoList[index];
             return InkWell(
               onDoubleTap: () {
-                Global.g1.todoList.remove(index);
+                setState(() {
+                  Global.g1.todoList.removeAt(index);
+                });
               },
               onLongPress: () {
-                TodoModel s1 = Global.g1.todoList[index];
-                txttitle.text = s1.title!;
-                txtdetail.text = s1.details!;
-                updateDialog(index);
+                TodoModel t1 = Global.g1.todoList[index];
+                txttitle.text = t1.title!;
+                txtdetail.text = t1.details!;
+                updateDialog( index);
               },
               child: Container(
                 margin: const EdgeInsets.all(10),
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.10,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
+                height: MediaQuery.of(context).size.height * 0.15,
+                width: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
-                    color: boxcolorList[index],
-                    borderRadius: BorderRadius.circular(10)),
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.amber,
+                ),
                 child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Title : ${todo.title}",
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.white),
-                          ),
-                          Text(
-                            "Details : ${todo.details}",
-                            style: const TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
+                      Text(
+                        "${data.title}",
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "${data.details}",
+                        style: const TextStyle(fontSize: 15),
                       ),
                     ],
                   ),
@@ -100,20 +81,66 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           },
+        )
+            : GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2),
           itemCount: Global.g1.todoList.length,
-        ) ,
+          itemBuilder: (context, index) {
+            TodoModel data = Global.g1.todoList[index];
+            return InkWell(
+              onDoubleTap: () {
+                setState(() {
+                  Global.g1.todoList.removeAt(index);
+                });
+              },
+              onLongPress: () {
+                TodoModel t1 = Global.g1.todoList[index];
+                txttitle.text = t1.title!;
+                txtdetail.text = t1.title!;
+                updateDialog(index);
+              },
+              child: Container(
+                margin: const EdgeInsets.all(10),
+                height: MediaQuery.of(context).size.height * 0.20,
+                width: MediaQuery.of(context).size.width * 0.25,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.amber,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${data.title}",
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "${data.details}",
+                        style: const TextStyle(fontSize: 15),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, 'todo').then((value) {
-              setState(() {});
-            });
+            Navigator.pushNamed(context, "todo").then(
+                  (value) {
+                setState(() {});
+              },
+            );
           },
-          backgroundColor: Colors.amberAccent,
-          child: const Icon(
-            Icons.add,
-            color: Colors.black,
-            size: 25,
-          ),
+          child: const Icon(Icons.add),
         ),
       ),
     );
