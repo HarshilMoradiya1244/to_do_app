@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/modal/to_do_modal.dart';
+import 'package:to_do_app/utils/color.dart';
 
 import '../utils/global.dart';
 
@@ -13,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController txttitle = TextEditingController();
   TextEditingController txtdetail = TextEditingController();
+  bool isgrid = true;
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +29,16 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.white,
           actions: [
             IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.grid_on_outlined,
-                  color: Colors.black,
-                )),
+              onPressed: () {
+                setState(() {
+                  isgrid = !isgrid;
+                });
+              },
+              icon: Icon(isgrid ?
+              Icons.list :
+              Icons.grid_on_outlined),
+              color: Colors.black,
+            ),
             IconButton(
                 onPressed: () {},
                 icon: Icon(
@@ -55,10 +62,16 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: Container(
                 margin: const EdgeInsets.all(10),
-                height: MediaQuery.of(context).size.height * 0.09,
-                width: MediaQuery.of(context).size.width,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.09,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 decoration: BoxDecoration(
-                    color: Colors.amber.shade200,
+                    color: boxcolorList[index],
                     borderRadius: BorderRadius.circular(10)),
                 child: Padding(
                   padding: const EdgeInsets.all(10),
@@ -70,13 +83,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           Text(
                             "Title : ${todo.title}",
                             style: const TextStyle(
-                                fontSize: 20, color: Colors.black),
+                                fontSize: 20, color: Colors.white),
                           ),
                           Text(
                             "Details : ${todo.details}",
                             style: const TextStyle(
                               fontSize: 20,
-                              color: Colors.black,
+                              color: Colors.white,
                             ),
                           ),
                         ],
@@ -88,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           },
           itemCount: Global.g1.todoList.length,
-        ),
+        ) ,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.pushNamed(context, 'todo').then((value) {

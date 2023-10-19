@@ -78,8 +78,26 @@ class _ToDoScreenState extends State<ToDoScreen> {
                   ),
                 ],
               ),
+              Divider(color: Colors.black,),
+              Column(
+                children: [
+                  Text("Priority",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                  SingleChildScrollView(scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                       ElevatedButton(onPressed: (){}, child: Text("Low"),),
+                       ElevatedButton(onPressed: (){}, child: Text("Medium"),),
+                       ElevatedButton(onPressed: (){}, child: Text("High"),),
+                       ElevatedButton(onPressed: (){}, child: Text("Urgent"),),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(height: 20,),
               TextField(
+                controller:txttitle,
                 decoration: InputDecoration(
                   hintText: "Add Title",
                   label: Text("Add Title"),
@@ -88,6 +106,7 @@ class _ToDoScreenState extends State<ToDoScreen> {
               ),
               SizedBox(height: 10,),
               TextField(
+                controller:txtdetail,
                 decoration: InputDecoration(
                   label: Text("Add Detail"),
                   hintText: "Add Detail",
