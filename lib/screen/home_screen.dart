@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: MediaQuery
                     .of(context)
                     .size
-                    .height * 0.09,
+                    .height * 0.10,
                 width: MediaQuery
                     .of(context)
                     .size
