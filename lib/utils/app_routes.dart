@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
-import 'package:to_do_app/screen/home_screen.dart';
-import 'package:to_do_app/screen/splash_screen.dart';
-import 'package:to_do_app/screen/to_do_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:to_do_app/screen/add/view/add_screen.dart';
+import 'package:to_do_app/screen/favourite/view/favourite_screen.dart';
+import 'package:to_do_app/screen/home/view/home_screen.dart';
 
-Map<String,WidgetBuilder> app_routes ={
 
-  '/':(context) => SplashScreen(),
-  'home':(context) => HomeScreen(),
-  'todo':(context) => ToDoScreen(),
+Map<String,WidgetBuilder> app_routes = {
+  '/':(context) => const HomeScreen(),
+  'add':(context) => const AddScreen(),
+  'favorite':(context) => const FavouriteScreen(),
 };
