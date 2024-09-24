@@ -30,7 +30,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                 final todo = controller.likedToDos[index];
                 return Container(
                   margin: const EdgeInsets.all(15),
-                  height: MediaQuery.sizeOf(context).height * 0.18,
+                  height: MediaQuery.sizeOf(context).height * 0.20,
                   width: MediaQuery.sizeOf(context).width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),

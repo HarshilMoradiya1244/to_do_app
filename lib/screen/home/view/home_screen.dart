@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () {}, icon: const Icon(Icons.grid_view_sharp)),
             IconButton(
                 onPressed: () {
-                  Get.toNamed("like");
+                  Get.toNamed("favorite");
                 }, icon: const Icon(Icons.favorite_border)),
           ],
         ),
@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
             itemBuilder: (context, index) {
               return Container(
                 margin: const EdgeInsets.all(15),
-                height: MediaQuery.sizeOf(context).height * 0.18,
+                height: MediaQuery.sizeOf(context).height * 0.22,
                 width: MediaQuery.sizeOf(context).width,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -85,13 +85,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   "title": controller.dataList[index].title,
                                   "description": controller.dataList[index].description,
                                 };
-
                                 await ShareHelper.saveLikedToDo(likedToDo);
-
-                                // Optionally, provide feedback that the item is liked
                                 Get.snackbar('Liked', 'To-Do saved to liked screen');
                               },
                               icon: const Icon(Icons.favorite_border),
+                              color: Colors.black,
                             ),
                           ),                          Align(
                             alignment: Alignment.bottomRight,
@@ -103,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 controller.getData();
                               },
                               icon: const Icon(Icons.delete_outline),
+                              color: Colors.black,
                             ),
                           ),
 
